@@ -1,0 +1,79 @@
+{% extends "base.html" %}
+
+{% block title %}About - The Problem Solver{% endblock %}
+
+{% block content %}
+<!-- Hero Section -->
+<section class="hero bg-primary bg-gradient py-5 mb-5 border-bottom border-warning border-3 border-glow">
+    <div class="container py-5 text-center">
+        <h1 class="display-3 fw-bold text-white mb-4">About <span class="text-warning">The Problem Solver</span></h1>
+        <p class="lead text-white-50 col-lg-8 mx-auto">Streamlining issue resolution for teams that value efficiency and
+            transparency</p>
+    </div>
+</section>
+
+<!-- Content Section -->
+<section class="container mb-5">
+    <div class="row justify-content-center">
+        <div class="col-lg-10">
+            <div class="card bg-dark text-white border-warning border-2 border-glow card-grow mb-4">
+                <div class="card-body p-5">
+                    <h2 class="card-title text-warning mb-4">Our Mission</h2>
+                    <p class="card-text lead">
+                        We built The Problem Solver to eliminate the chaos of issue tracking. Our platform brings
+                        clarity to problem resolution with intuitive tools that help teams focus on solutions,
+                        not paperwork.
+                    </p>
+                </div>
+            </div>
+
+            <div class="card bg-dark text-white border-warning border-2 border-glow card-grow">
+                <div class="card-body p-5">
+                    <h2 class="text-warning mb-4">Key Features</h2>
+                    <div class="row g-4">
+                        <div class="col-md-6">
+                            <div class="d-flex">
+                                <i class="bi bi-lightning-charge-fill text-warning fs-3 me-3"></i>
+                                <div>
+                                    <h4 class="text-white">Real-time Tracking</h4>
+                                    <p>Instant updates on all issues with live notifications</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="d-flex">
+                                <i class="bi bi-people-fill text-warning fs-3 me-3"></i>
+                                <div>
+                                    <h4 class="text-white">Team Collaboration</h4>
+                                    <p>Built-in tools for seamless team communication</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="d-flex">
+                                <i class="bi bi-graph-up text-warning fs-3 me-3"></i>
+                                <div>
+                                    <h4 class="text-white">Advanced Analytics</h4>
+                                    <p>Data-driven insights into your resolution workflow</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="d-flex">
+                                <i class="bi bi-shield-lock text-warning fs-3 me-3"></i>
+                                <div>
+                                    <h4 class="text-white">Secure Platform</h4>
+                                    <p>Enterprise-grade security for your sensitive data</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="text-center mt-5">
+                        <a href="{% url 'home' %}" class="btn btn-warning btn-lg px-4">Back to Dashboard</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}
