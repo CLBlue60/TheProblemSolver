@@ -9,7 +9,7 @@ body {
 
 main {
     margin-top: 1rem;
-    min-height: calc(100vh - 80px); 
+    min-height: calc(100vh - 80px);
 }
 
 /* Gold Glow Effect */
@@ -43,4 +43,9 @@ main {
     color: white;
     margin-bottom: 2rem;
     border-bottom: 3px solid #ffc107;
+}
+
+.issue-card {
+    border-radius: 8px;
+    border: 1px solid #ddd;
 }

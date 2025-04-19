@@ -14,8 +14,8 @@ class Priority(models.Model):
         return self.name
 
 class Status(models.Model):
-    name = models.CharField(max_length=128)
-    description = models.CharField(max_length=256)
+    name = models.CharField(max_length=128, unique=True)  
+    description = models.CharField(max_length=256, blank=True)
     order = models.IntegerField(default=0)
 
     class Meta:

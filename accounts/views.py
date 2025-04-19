@@ -6,17 +6,17 @@ from django.contrib.auth import views as auth_views
 class SignUpView(CreateView):
     template_name = "registration/signup.html"
     form_class = CustomUserCreationForm
-    success_url = reverse_lazy("login")  
+    success_url = reverse_lazy("accounts:login") 
 
 class CustomLoginView(auth_views.LoginView):
     template_name = 'registration/login.html'
-    success_url = reverse_lazy('home')
+    success_url = reverse_lazy('pages:home')
 
 class CustomLogoutView(auth_views.LogoutView):
-    next_page = reverse_lazy('home')
+    next_page = reverse_lazy('pages:home')
 
 class CustomPasswordChangeView(auth_views.PasswordChangeView):
-    success_url = reverse_lazy('home')
+    success_url = reverse_lazy('pages:home')
     template_name = 'registration/password_change.html'
 
 class CustomPasswordResetView(auth_views.PasswordResetView):

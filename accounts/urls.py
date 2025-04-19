@@ -1,12 +1,14 @@
 from django.urls import path
-from django.contrib.auth import views as auth_views  # Add this import
+from django.contrib.auth import views as auth_views
 from .views import (
     SignUpView,
     CustomLoginView,
     CustomLogoutView,
     CustomPasswordChangeView,
-    CustomPasswordResetView
+    CustomPasswordResetView,
 )
+
+app_name = 'accounts'
 
 urlpatterns = [
     path('signup/', SignUpView.as_view(), name='signup'),

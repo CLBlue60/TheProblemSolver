@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+
+{% block title %}New Issue{% endblock title %}
+
+{% block content %}
+<div class="container mt-5">
+    <h1 class="text-center">List New Issue</h1>
+    <p class="text-center text-muted">Fill out the form below to create a new issue.</p>
+    <form method="POST">
+        {% csrf_token %}
+        <div class="card issue-card">
+            <div class="card-body">
+                {{ form|crispy }}
+                <div class="d-flex justify-content-between mt-3">
+                    <input type="submit" class="btn btn-success" value="Create">
+                    <a href="{% url 'issues:board' %}" class="btn btn-secondary">Back</a>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+{% endblock content %}

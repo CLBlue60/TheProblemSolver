@@ -1,37 +1,126 @@
 {% extends 'base.html' %}
+{% load crispy_forms_tags %}
 
-{% block title %}Create New Issue - The Problem Solver{% endblock %}
+{% block title %}Issue Board{% endblock title %}
 
 {% block content %}
-<div class="container" style="padding-top: 80px;">
-    <div class="card bg-dark text-white border-warning border-2 border-glow">
-        <div class="card-header bg-primary">
-            <h2 class="mb-0"><i class="bi bi-plus-circle"></i> Create New Issue</h2>
+<div class="container mt-5">
+    <!-- Styled H1 -->
+    <h1 class="text-center mb-4 text-warning fw-bold display-4">
+        <i class="bi bi-lightning-charge-fill me-2"></i>Issue Board
+    </h1>
+
+    <!-- Create New Issue Section -->
+    <div class="text-center mb-4">
+        <h4 class="text-light fw-semibold">
+            <i class="bi bi-question-circle-fill me-2"></i>Have a new problem to solve?
+        </h4>
+        <a href="{% url 'issues:create' %}" class="btn btn-primary btn-lg shadow">Create New Issue</a>
+    </div>
+
+    <!-- Issue Columns -->
+    <div class="row">
+        <!-- To-Do Column -->
+        <div class="col-md-4">
+            <h4 class="text-center text-primary border-bottom border-primary pb-2">To-Do</h4>
+            {% for issue in to_do_list %}
+            <div class="card issue-card mb-3 shadow-lg border-primary bg-dark text-primary">
+                <div class="card-header bg-primary text-white">
+                    <h5 class="card-title mb-0">{{ issue.title }}</h5>
+                </div>
+                <div class="card-body">
+                    <h6 class="card-subtitle mb-2 text-muted">Priority: {{ issue.priority }}</h6>
+                    <p class="card-text">{{ issue.description|truncatechars:128 }}</p>
+                    <p class="card-text"><strong>Reporter:</strong> {{ issue.reporter }}</p>
+                    <p class="card-text"><strong>Assignee:</strong> {{ issue.assignee }}</p>
+
+                    <!-- Change Status Form -->
+                    <form method="POST" action="{% url 'issues:change_status' issue.pk %}" class="d-inline">
+                        {% csrf_token %}
+                        <select name="status" class="form-select form-select-sm d-inline w-auto">
+                            {% for status in statuses %}
+                            <option value="{{ status.name }}" {% if issue.status.name == status.name %}selected{% endif %}>
+                                {{ status.name }}
+                            </option>
+                            {% endfor %}
+                        </select>
+                        <button type="submit" class="btn btn-sm btn-outline-secondary">Change Status</button>
+                    </form>
+
+                    <!-- Delete Button -->
+                    <a href="{% url 'issues:delete' issue.pk %}" class="btn btn-sm btn-outline-danger">Delete</a>
+                </div>
+            </div>
+            {% endfor %}
         </div>
-        <div class="card-body">
-            <form method="post">
-                {% csrf_token %}
 
-                {% for field in form %}
-                <div class="mb-3">
-                    <label class="form-label text-warning">{{ field.label }}</label>
-                    {{ field }}
-                    {% if field.help_text %}
-                    <small class="form-text text-muted">{{ field.help_text }}</small>
-                    {% endif %}
+        <!-- In-Progress Column -->
+        <div class="col-md-4">
+            <h4 class="text-center text-warning border-bottom border-warning pb-2">In-Progress</h4>
+            {% for issue in in_progress_list %}
+            <div class="card issue-card mb-3 shadow-lg border-warning bg-dark text-warning">
+                <div class="card-header bg-warning text-dark">
+                    <h5 class="card-title mb-0">{{ issue.title }}</h5>
                 </div>
-                {% endfor %}
+                <div class="card-body">
+                    <h6 class="card-subtitle mb-2 text-muted">Priority: {{ issue.priority }}</h6>
+                    <p class="card-text">{{ issue.description|truncatechars:128 }}</p>
+                    <p class="card-text"><strong>Reporter:</strong> {{ issue.reporter }}</p>
+                    <p class="card-text"><strong>Assignee:</strong> {{ issue.assignee }}</p>
 
-                <div class="mt-4 d-flex justify-content-end gap-2">
-                    <a href="{% url 'issues:board' %}" class="btn btn-secondary">
-                        <i class="bi bi-x-circle"></i> Cancel
-                    </a>
-                    <button type="submit" class="btn btn-warning">
-                        <i class="bi bi-check-circle"></i> Create Issue
-                    </button>
+                    <!-- Change Status Form -->
+                    <form method="POST" action="{% url 'issues:change_status' issue.pk %}" class="d-inline">
+                        {% csrf_token %}
+                        <select name="status" class="form-select form-select-sm d-inline w-auto">
+                            {% for status in statuses %}
+                            <option value="{{ status.name }}" {% if issue.status.name == status.name %}selected{% endif %}>
+                                {{ status.name }}
+                            </option>
+                            {% endfor %}
+                        </select>
+                        <button type="submit" class="btn btn-sm btn-outline-secondary">Change Status</button>
+                    </form>
+
+                    <!-- Delete Button -->
+                    <a href="{% url 'issues:delete' issue.pk %}" class="btn btn-sm btn-outline-danger">Delete</a>
                 </div>
-            </form>
+            </div>
+            {% endfor %}
+        </div>
+
+        <!-- Done Column -->
+        <div class="col-md-4">
+            <h4 class="text-center text-success border-bottom border-success pb-2">Done</h4>
+            {% for issue in done_list %}
+            <div class="card issue-card mb-3 shadow-lg border-success bg-dark text-success">
+                <div class="card-header bg-success text-white">
+                    <h5 class="card-title mb-0">{{ issue.title }}</h5>
+                </div>
+                <div class="card-body">
+                    <h6 class="card-subtitle mb-2 text-muted">Priority: {{ issue.priority }}</h6>
+                    <p class="card-text">{{ issue.description|truncatechars:128 }}</p>
+                    <p class="card-text"><strong>Reporter:</strong> {{ issue.reporter }}</p>
+                    <p class="card-text"><strong>Assignee:</strong> {{ issue.assignee }}</p>
+
+                    <!-- Change Status Form -->
+                    <form method="POST" action="{% url 'issues:change_status' issue.pk %}" class="d-inline">
+                        {% csrf_token %}
+                        <select name="status" class="form-select form-select-sm d-inline w-auto">
+                            {% for status in statuses %}
+                            <option value="{{ status.name }}" {% if issue.status.name == status.name %}selected{% endif %}>
+                                {{ status.name }}
+                            </option>
+                            {% endfor %}
+                        </select>
+                        <button type="submit" class="btn btn-sm btn-outline-secondary">Change Status</button>
+                    </form>
+
+                    <!-- Delete Button -->
+                    <a href="{% url 'issues:delete' issue.pk %}" class="btn btn-sm btn-outline-danger">Delete</a>
+                </div>
+            </div>
+            {% endfor %}
         </div>
     </div>
 </div>
-{% endblock %}
+{% endblock content %}
